@@ -1,32 +1,74 @@
-# React + TypeScript + Vite
+<div align="center">
+  <img src="public/logo.svg" alt="Cook Smart Logo" width="120" height="120" />
+  <h1>Cook Smart</h1>
+  <p><strong>Cook what you've got. No excuses.</strong></p>
+  <p>A beautiful, intelligent culinary companion that helps you transform humble pantry staples into mindful, nourishing meals without waste.</p>
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+---
 
-Currently, two official plugins are available:
+## 🍳 About The Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Cook Smart** is a modern React web application designed to eradicate the "nothing to eat" dilemma. By cross-referencing your current pantry availability with an extensive database of recipes, it provides instant, creative meal matches—saving you time, reducing food waste, and eliminating last-minute grocery runs.
 
-## React Compiler
+### ✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Smart Pantry Input:** Quickly type in the ingredients you have on hand. The app provides intelligent auto-suggestions as you type.
+- **Instant Culinary Matches:** Get real-time feedback on how many recipes you can make right now based on your ingredients.
+- **Match Scoring System:** Recipes are categorized into "100% Ready" or partially ready, showing you exactly what ingredients you are missing.
+- **Beautiful, Mindful UI:** Features a premium, calming design aesthetic ("Fresh Kitchen" palette) using Tailwind CSS.
+- **Pantry Freshness Tracking:** Keep an eye on the shelf life of your ingredients to prioritize what to cook first and minimize food waste.
+- **Responsive Layout:** Works flawlessly across desktop, tablet, and mobile devices.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🚀 Getting Started
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+To get a local copy up and running, follow these simple steps.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Prerequisites
+
+You will need [Node.js](https://nodejs.org/) installed on your machine.
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/cook-smart.git
+   cd cook-smart
+   ```
+
+2. **Install the dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser:**
+   Navigate to `http://localhost:5173` to see the application in action.
+
+---
+
+## 🛠️ Built With
+
+- **[React](https://reactjs.org/)** - UI Library
+- **[TypeScript](https://www.typescriptlang.org/)** - Static Typing
+- **[Vite](https://vitejs.dev/)** - Next Generation Frontend Tooling
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
+- **[Lucide React](https://lucide.dev/)** - Beautiful, consistent icons
+
+---
+
+## 💡 Thoughtful Domesticity
+
+*The average household tosses $1,500 worth of edible ingredients annually. Cook Smart cross-references shelf lives and flavor affinities to prioritize what needs to be cooked first, helping you cook with calm and confidence.*
+
+---
+
+<div align="center">
+  <p>Crafted for calm domesticity. © Cook Smart.</p>
+</div>
