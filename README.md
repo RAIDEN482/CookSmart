@@ -1,6 +1,6 @@
 <div align="center">
   <img src="public/logo.svg" alt="Cook Smart Logo" width="120" height="120" />
-  <h1>Cook Smart</h1>
+  <h1>Cook Smart <span style="font-size: 0.5em; vertical-align: middle; color: #5B7065;">v1.2.0</span></h1>
   <p><strong>Cook what you've got. No excuses.</strong></p>
   <p>A beautiful, intelligent culinary companion that helps you transform humble pantry staples into mindful, nourishing meals without waste.</p>
 </div>

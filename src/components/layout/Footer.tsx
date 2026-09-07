@@ -45,7 +45,7 @@ export function Footer() {
         </div>
         
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-muted font-medium text-xs">
-          <span>© {new Date().getFullYear()} Cook Smart. Mindful kitchencraft & culinary companion.</span>
+          <span>© {new Date().getFullYear()} Cook Smart <span className="font-semibold text-primary/80">v1.2.0</span> · Mindful kitchencraft & culinary companion.</span>
           <div className="flex items-center gap-6">
             <a className="hover:text-ink transition-colors" href="#">Terms of Table</a>
             <a className="hover:text-ink transition-colors" href="#">Privacy & Produce</a>
