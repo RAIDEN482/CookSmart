@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
-import { ChefHat, Menu } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { useState } from 'react'
+import { CookSmartLogo } from './CookSmartLogo'
 
 export function Navbar() {
   const { pathname } = useLocation()
@@ -15,12 +16,10 @@ export function Navbar() {
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center gap-2 text-primary font-display font-semibold text-lg
-                     hover:text-primary-dark transition-colors"
           aria-label="CookSmart home"
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-button"
         >
-          <ChefHat size={22} strokeWidth={1.5} aria-hidden="true" />
-          <span>CookSmart</span>
+          <CookSmartLogo size={34} />
         </Link>
 
         {/* Desktop nav links (Phase 2 placeholders) */}
