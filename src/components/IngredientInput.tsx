@@ -94,35 +94,14 @@ export function IngredientInput({ onSubmit, initialChips = [] }: IngredientInput
 
   return (
     <div className="w-full" ref={dropdownRef}>
-      {/* ── Input row ─────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row gap-3">
-
-        {/* Chip container + text input */}
-        <div
-          className="flex-1 min-h-[56px] bg-surface rounded-card border border-line
-                     px-3 py-2 flex flex-wrap gap-2 items-center cursor-text
-                     focus-within:border-primary focus-within:ring-2
-                     focus-within:ring-primary/20 transition-all"
-          onClick={() => inputRef.current?.focus()}
-          role="group"
-          aria-label="Ingredient chips"
-        >
-          {/* Chips */}
-          {chips.map((chip) => (
-            <span key={chip} className="chip" aria-label={chip}>
-              {chip}
-              <button
-                type="button"
-                className="chip-remove"
-                aria-label={`Remove ${chip}`}
-                onClick={(e) => { e.stopPropagation(); removeChip(chip) }}
-              >
-                <X size={11} strokeWidth={2.5} />
-              </button>
-            </span>
-          ))}
-
-          {/* Text input */}
+      <form 
+        className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-4" 
+        onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
+      >
+        <div className="relative flex-1 flex items-center bg-primary/5 rounded-lg px-4 border border-transparent focus-within:border-primary transition-colors">
+          <span className="text-muted mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </span>
           <input
             ref={inputRef}
             id="ingredient-input"
@@ -130,70 +109,91 @@ export function IngredientInput({ onSubmit, initialChips = [] }: IngredientInput
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={chips.length === 0 ? 'Type an ingredient and press Enter…' : ''}
-            className="flex-1 min-w-[160px] bg-transparent outline-none text-ink
-                       placeholder-muted text-sm py-1"
-            aria-label="Add ingredient"
-            aria-autocomplete="list"
-            aria-controls="suggestion-list"
-            aria-activedescendant={
-              activeSuggestion >= 0 ? `suggestion-${activeSuggestion}` : undefined
-            }
+            placeholder="Add ingredients (e.g., eggs, garlic, pasta)..."
+            className="w-full bg-transparent py-3 text-ink placeholder-muted focus:outline-none"
             autoComplete="off"
           />
-        </div>
+          <button 
+            type="button"
+            onClick={() => { if (inputValue.trim()) addChip(inputValue) }}
+            className="text-primary hover:text-primary-dark p-1 text-xs font-semibold flex items-center gap-1 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            <span className="hidden md:inline">Add</span>
+          </button>
 
-        {/* Find Recipes button — full-width on mobile, fixed right on desktop */}
-        <button
-          id="find-recipes-btn"
-          type="button"
-          className="btn-accent w-full sm:w-auto sm:shrink-0 gap-2"
-          onClick={handleSubmit}
-          aria-label="Find recipes"
-        >
-          Find Recipes
-          <ChevronRight size={16} strokeWidth={2} aria-hidden="true" />
-        </button>
-      </div>
-
-      {/* ── Autocomplete dropdown ──────────────────────────────── */}
-      {suggestions.length > 0 && (
-        <div
-          id="suggestion-list"
-          role="listbox"
-          aria-label="Ingredient suggestions"
-          className="mt-1.5 bg-surface rounded-card border border-line shadow-card
-                     max-h-52 overflow-y-auto animate-fade-in z-30 relative"
-        >
-          {suggestions.map((s, i) => (
-            <button
-              key={s}
-              id={`suggestion-${i}`}
-              role="option"
-              aria-selected={activeSuggestion === i}
-              type="button"
-              onMouseDown={(e) => { e.preventDefault(); addChip(s) }}
-              className={[
-                'w-full text-left px-4 py-2.5 text-sm transition-colors',
-                activeSuggestion === i
-                  ? 'bg-primary/10 text-primary'
-                  : 'text-ink hover:bg-bg',
-              ].join(' ')}
+          {/* Autocomplete dropdown */}
+          {suggestions.length > 0 && (
+            <div
+              id="suggestion-list"
+              role="listbox"
+              className="absolute top-full left-0 right-0 mt-1 bg-surface rounded-lg border border-line shadow-card max-h-52 overflow-y-auto animate-fade-in z-30"
             >
-              {/* Highlight matching part */}
-              <HighlightMatch text={s} query={inputValue} />
-            </button>
-          ))}
+              {suggestions.map((s, i) => (
+                <button
+                  key={s}
+                  role="option"
+                  aria-selected={activeSuggestion === i}
+                  type="button"
+                  onMouseDown={(e) => { e.preventDefault(); addChip(s) }}
+                  className={[
+                    'w-full text-left px-4 py-2.5 text-sm transition-colors',
+                    activeSuggestion === i ? 'bg-primary/10 text-primary' : 'text-ink hover:bg-bg',
+                  ].join(' ')}
+                >
+                  <HighlightMatch text={s} query={inputValue} />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-      )}
 
-      {/* ── Helper text ────────────────────────────────────────── */}
-      {chips.length === 0 && (
-        <p className="mt-2 text-xs text-muted">
-          Press <kbd className="bg-line rounded px-1 py-0.5 font-mono text-[11px]">Enter</kbd> or{' '}
-          <kbd className="bg-line rounded px-1 py-0.5 font-mono text-[11px]">,</kbd> after each ingredient
-        </p>
-      )}
+        <button
+          type="submit"
+          className="h-12 px-8 rounded-lg bg-primary text-white font-semibold flex items-center justify-center gap-2 shadow-md hover:bg-primary-dark transition-all active:scale-[0.98] w-full sm:w-auto shrink-0"
+        >
+          <span>Find Recipes</span>
+          <ChevronRight size={18} strokeWidth={2} />
+        </button>
+      </form>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between text-xs font-medium text-muted">
+          <span className="flex items-center gap-1 uppercase tracking-wider">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Current Basket ({chips.length})
+          </span>
+          {chips.length > 0 && (
+            <button 
+              type="button"
+              onClick={() => setChips([])}
+              className="text-accent-text hover:underline transition-colors"
+            >
+              Clear all
+            </button>
+          )}
+        </div>
+        <div className="flex flex-wrap items-center gap-2 min-h-[36px]">
+          {chips.map((chip) => (
+            <span 
+              key={chip} 
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary/10 text-ink text-sm font-medium transition-all hover:bg-primary/20 group animate-fade-in"
+            >
+              <span>{chip}</span>
+              <button
+                type="button"
+                onClick={() => removeChip(chip)}
+                className="text-muted hover:text-danger transition-colors flex items-center"
+              >
+                <X size={14} strokeWidth={2} />
+              </button>
+            </span>
+          ))}
+          {chips.length === 0 && (
+            <span className="text-sm text-muted italic">No ingredients added yet.</span>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
