@@ -44,12 +44,21 @@ export function ResultsPage() {
   }, [ingredients, filters])
 
   // Group results by bucket
-  const grouped = useMemo(() => {
-    if (!response) return {} as Record<Bucket, typeof response.results>
-    return Object.fromEntries(
-      BUCKET_ORDER.map((b) => [b, response.results.filter((r) => r.bucket === b)])
-    ) as Record<Bucket, typeof response.results>
-  }, [response])
+ const grouped = useMemo(() => {
+  if (!response) {
+    return {} as Record<Bucket, RecommendResponse['results']>
+  }
+
+  const results = response.results
+
+  return Object.fromEntries(
+    BUCKET_ORDER.map((b) => [
+      b,
+      results.filter((r) => r.bucket === b),
+    ])
+  ) as Record<Bucket, RecommendResponse['results']>
+}, [response])
+
 
   // ── Empty input ──────────────────────────────────────────────────
   if (ingredients.length === 0) {
